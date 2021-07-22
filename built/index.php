@@ -1,0 +1,187 @@
+<head>
+<meta charset="utf-8">
+<title>Asteroids</title>
+<style>
+body{
+background:#FF333333;
+font-family:arial;
+margin:0;
+padding:none;
+}
+body > div,
+body > div:-webkit-full-screen{
+background:black;
+}
+.emscripten{
+padding-right:0;
+margin-left:auto;
+margin-right:auto;
+display:block;
+}
+div.emscripten{
+text-align:center;
+}
+canvas.emscripten{
+border:0px none;
+background-color:#333333;
+border-top-left-radius:1.5% 2%;
+border-top-right-radius:1.5% 2%;
+border-bottom-left-radius:1.5% 2%;
+border-bottom-right-radius:1.5% 2%;
+}
+#emscripten_logo{
+display:inline-block;
+margin:0;
+}
+@-webkit-keyframes rotation{
+from{
+-webkit-transform:rotate(0deg);
+}
+to{
+-webkit-transform:rotate(360deg);
+}
+}
+@-moz-keyframes rotation{
+from{
+-moz-transform:rotate(0deg);
+}
+to{
+-moz-transform:rotate(360deg);
+}
+}
+@-o-keyframes rotation{
+from{
+-o-transform:rotate(0deg);
+}
+to{
+-o-transform:rotate(360deg);
+}
+}
+@keyframes rotation{
+from{
+transform:rotate(0deg);
+}
+to{
+transform:rotate(360deg);
+}
+}
+#status{
+display:inline-block;
+vertical-align:top;
+margin-top:30px;
+margin-left:20px;
+font-weight:bold;
+color:rgb(120, 120, 120);
+}
+#progress{
+height:20px;
+width:30px;
+}
+#controls{
+background:none;
+display:block;
+margin-top:30px;
+margin-left:auto;
+margin-right:auto;
+text-align:center;
+}
+</style>
+</head>
+<body>
+<input type="checkbox" id="di" hidden/>
+<div id="ihig" hidden></div>
+<div id="iwid" hidden></div>
+<div id="shut" hidden>1</div>
+<iframe src="./bezz.htm" style="border-width:0px;position:absolute;top:0px;left:0px;right:0px;bottom:0px;overflow:hidden;z-index:999996;display:block;overflow-y:hidden;overflow-x:hidden;pointer-events: none;" id="circle" title="Mask"></iframe>
+<input type="checkbox" id="di" hidden/>
+<input type="button" id="btn" style="background-color: green;position: absolute;display: block;left: 5%;top: 50%;z-index: 999997;border:5px solid #E7E7E7;border-radius:50%;"onclick="document.getElementById('di').click();"></input>
+<div class="emscripten" id="status">Wasming...</div>
+<div class="emscripten">
+<progress value="0" max="100" id="progress" hidden=1></progress>
+</div>
+<script>
+let bz=new BroadcastChannel('bez');
+document.getElementById('btn').addEventListener('click',function(){
+bz.postMessage({data:222});
+});
+</script>
+<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<!-- <div id="controls">
+  <input type="button" value="Fullscreen" onclick="Module.requestFullscreen(true, false)"/>
+</span> -->
+<script type='text/javascript'>
+var statusElement=document.getElementById('status');
+var progressElement=document.getElementById('progress');
+var Module={
+preRun:[],
+postRun:[],
+print:(function(){
+var element=document.getElementById('output');
+if(element) element.value=''; // clear browser cache
+return function(text){
+if(arguments.length>1) text=Array.prototype.slice.call(arguments).join(' ');
+console.log(text);
+if(element){
+element.value+=text+"\n";
+element.scrollTop=element.scrollHeight;
+}
+};
+})(),
+printErr:function(text){
+if(arguments.length>1) text=Array.prototype.slice.call(arguments).join(' ');
+if(0){
+dump(text+'\n');
+}else{
+console.error(text);
+}
+},
+canvas:(function(){
+var canvas=document.getElementById('canvas');
+canvas.addEventListener("webglcontextlost",function(e){
+alert('WebGL context lost. You will need to reload the page.');
+e.preventDefault();
+},false);
+return canvas;
+})(),
+setStatus:function(text){
+if(!Module.setStatus.last) Module.setStatus.last={time:Date.now(),text:''};
+if(text === Module.setStatus.text) return;
+var m=text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+var now=Date.now();
+if(m && now-Date.now()<30) return; // if this is a progress update, skip it if too soon
+if(m){
+text=m[1];
+progressElement.value=parseInt(m[2])*100;
+progressElement.max=parseInt(m[4])*100;
+progressElement.hidden=false;
+}else{
+progressElement.value=null;
+progressElement.max=null;
+progressElement.hidden=true;
+}
+statusElement.innerHTML=text;
+},
+totalDependencies:0,
+monitorRunDependencies:function(left){
+this.totalDependencies=Math.max(this.totalDependencies,left);
+Module.setStatus(left?'Preparing... ('+(this.totalDependencies-left)+'/'+this.totalDependencies+')':'All downloads complete.');
+}
+};
+Module.setStatus('Downloading...');
+window.onerror=function(event){
+Module.setStatus('Exception thrown, see JavaScript console');
+Module.setStatus=function(text){
+if(text) Module.printErr('[post-exception status] '+text);
+};
+};
+</script>
+<script charset="utf-8" async src="./asteroids.js"></script>
+</body>
+<script>
+let hi,wi;
+hi=Math.round(window.innerHeight);
+wi=Math.round(window.innerWidth);
+document.getElementById("ihig").innerHTML=hi;
+document.getElementById("circle").height=hi;
+document.getElementById("circle").width=wi;
+</script>
