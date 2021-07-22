@@ -88,7 +88,7 @@ fprintf(stderr,"SDL_RW close failed while loading audio file (%s): %s\n",path,
 free(buffer);
 return NULL == samples[num_samples] ? MIXER_INVALID_SAMPLE : num_samples++;
 }
-int mixer_play_sample(const int sample){
+int mixer_play_sample(register int sample){
 static const int ANY_CHANNEL=-1;
 if(sample > num_samples-1 || NULL == samples[sample]){
 return MIXER_INVALID_CHANNEL;
