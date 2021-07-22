@@ -46,24 +46,24 @@ SDL_Event event;
 while (SDL_PollEvent(&event)){
 switch (event.type){
 case SDL_KEYDOWN:
-if(event.key.keysym.sym == SDLK_A){
+if(event.key.keysym.sym == SDLK_a){
 move_left=true;
-} else if(event.key.keysym.sym == SDLK_D){
+} else if(event.key.keysym.sym == SDLK_d){
 move_right=true;
-} else if(event.key.keysym.sym == SDLK_W){
+} else if(event.key.keysym.sym == SDLK_w){
 move_up=true;
-} else if(event.key.keysym.sym == SDLK_S){
+} else if(event.key.keysym.sym == SDLK_s){
 move_down=true;
 }
 break;
 case SDL_KEYUP:
-if(event.key.keysym.sym == SDLK_A){
+if(event.key.keysym.sym == SDLK_a){
 move_left=false;
-} else if(event.key.keysym.sym == SDLK_D){
+} else if(event.key.keysym.sym == SDLK_d){
 move_right=false;
-} else if(event.key.keysym.sym == SDLK_W){
+} else if(event.key.keysym.sym == SDLK_w){
 move_up=false;
-} else if(event.key.keysym.sym == SDLK_S){
+} else if(event.key.keysym.sym == SDLK_s){
 move_down=false;
 }
 break;

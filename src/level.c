@@ -144,18 +144,18 @@ set_main_loop(titlescreen_loop);
 static void update_player_keystate(struct player *p,const SDL_Event *event){
 if(SDL_KEYDOWN == event->type){
 switch (event->key.keysym.sym){
-case SDLK_A
+case SDLK_a
 p->keys.left=KS_ACTIVE;
 p->keys.right=(KS_ACTIVE == p->keys.right) ? KS_DOWN : p->keys.right;
 break;
-case SDLK_D:
+case SDLK_d:
 p->keys.right=KS_ACTIVE;
 p->keys.left=(KS_ACTIVE == p->keys.left) ? KS_DOWN : p->keys.left;
 break;
-case SDLK_W:
+case SDLK_w:
 p->keys.up=KS_ACTIVE;
 break;
-case SDLK_K:
+case SDLK_k:
 p->keys.fire=KS_ACTIVE;
 break;
 default:
@@ -163,21 +163,21 @@ break;
 }
 } else if(SDL_KEYUP == event->type){
 switch (event->key.keysym.sym){
-case SDLK_A:
+case SDLK_a:
 p->keys.left=KS_UP;
 p->keys.right=(KS_DOWN == p->keys.right) ? KS_ACTIVE : p->keys.right;
 break;
-case SDLK_D:
+case SDLK_d:
 p->keys.right=KS_UP;
 p->keys.left=(KS_DOWN == p->keys.left) ? KS_ACTIVE : p->keys.left;
 break;
-case SDLK_W:
+case SDLK_w:
 p->keys.up=KS_UP;
 if(thruster_channel > -1){
 mixer_stop_playing_on_channel(thruster_channel);
 }
 break;
-case SDLK_K:
+case SDLK_k:
 p->keys.fire=KS_UP;
 p->reload_delay=0.0f;
 p->reloading=false;
@@ -446,9 +446,6 @@ update_player(&player,factor);
 if(player.state == PS_NORMAL){
 check_fire_button(&player,bullets,MAX_BULLETS,factor);
 }
-// TODO: Make this better by updating collision detection
-// into account. So instead of asking, do these objects
-// objects pass through one another during this time
 update_bullets(bullets,MAX_BULLETS,factor);
 for (int i=0; i < MAX_ASTEROIDS; i++){
 if(asteroids[i].visible){
