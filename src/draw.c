@@ -184,7 +184,7 @@ draw_text_centered("H - HIGH SCORES",0.24f,0.555f);
 }
 void draw_level_title(unsigned int level){
 char titlecard[100];
-snprintf(titlecard,100,"LEVEL %u",level);
+snprintf(titlecard,100,"LIGHTYEARS FROM EARTH: %u",level);
 draw_text_centered(titlecard,0.35f,.30f);
 }
 void draw_lives(int lives){
@@ -239,5 +239,5 @@ snprintf(buffer,SCORE_BUFFER_SIZE,"ERROR");
 draw_text(buffer,0.35f,0.025f,0.008f);
 }
 void draw_title(){
-draw_text_centered("** ASTRONOIDS **",0.8f,0.17f);
+draw_text_centered("** ASTRONOIDS **",0.8f,0.8f);
 }
