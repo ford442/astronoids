@@ -144,7 +144,7 @@ set_main_loop(titlescreen_loop);
 static void update_player_keystate(struct player *p,const SDL_Event *event){
 if(SDL_KEYDOWN == event->type){
 switch (event->key.keysym.sym){
-case SDLK_a
+case SDLK_a:
 p->keys.left=KS_ACTIVE;
 p->keys.right=(KS_ACTIVE == p->keys.right) ? KS_DOWN : p->keys.right;
 break;
