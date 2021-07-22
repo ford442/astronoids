@@ -173,13 +173,13 @@ draw_text_centered(str,0.24f,0.21f+0.03f * (float) i);
 draw_text_centered("PRESS ENTER FOR MAIN MENU",0.24f,0.59f);
 }
 void draw_instructions(){
-draw_text_centered("PRESS ENTER TO PLAY",0.3f,0.30f);
-draw_text_centered("SPACE - FIRE",0.20f,0.385f);
-draw_text_centered("ARROWS - DIRECTION",0.20f,.415f);
-draw_text_centered("UP - THRUSTER",0.20f,.445f);
+draw_text_centered("PRESS ENTER TO BEGIN?",0.3f,0.30f);
+draw_text_centered("K - FIRE",0.20f,0.385f);
+draw_text_centered("A / D - DIRECTION",0.20f,.415f);
+draw_text_centered("W - THRUSTER",0.20f,.445f);
 #ifndef __EMSCRIPTEN__
 draw_text_centered("ESC - EXIT",0.20f,.475f);
-draw_text_centered("PRESS H FOR HIGH SCORES",0.24f,0.555f);
+draw_text_centered("H - HIGH SCORES",0.24f,0.555f);
 #endif
 }
 void draw_level_title(unsigned int level){
