@@ -26,7 +26,7 @@ void canvas_start_drawing(bool clear){
 if(clear){
 video_clear();
 }
-glColor3f(1.0f,1.0f,1.0f);
+glColor3f(0.0f,0.0f,1.0f);
 }
 void canvas_set_colour(float r,float g,float b){
 glColor3f(r,g,b);

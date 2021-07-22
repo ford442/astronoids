@@ -239,5 +239,5 @@ snprintf(buffer,SCORE_BUFFER_SIZE,"ERROR");
 draw_text(buffer,0.35f,0.025f,0.008f);
 }
 void draw_title(){
-draw_text_centered("ASTEROIDS",0.8f,0.17f);
+draw_text_centered("** ASTRONOIDS **",0.8f,0.17f);
 }
