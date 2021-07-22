@@ -17,10 +17,8 @@ static int canvas_width=0;
 static int canvas_height=0;
 static float pixel_density=1.f;
 #ifdef __EMSCRIPTEN__
-
 static int prev_inner_width = 0;
 static int prev_inner_height = 0;
-
 static EM_BOOL resize_callback(int eventType, const EmscriptenUiEvent *uiEvent, void *userdata)
 {
     const int inner_width = uiEvent->windowInnerWidth;
@@ -32,7 +30,6 @@ static EM_BOOL resize_callback(int eventType, const EmscriptenUiEvent *uiEvent, 
         new_height *= 2;
     }
     emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-    // canvas wouldn't make it smaller than it's logical size
     if (new_width > logical_width && new_height > logical_height) {
         const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev_inner_height;
         const bool canvas_expanded = new_width > canvas_width || new_height > canvas_height;
@@ -43,7 +40,6 @@ static EM_BOOL resize_callback(int eventType, const EmscriptenUiEvent *uiEvent, 
             const int client_height = EM_ASM_INT({
                 return document.body.clientHeight;
             }, NULL);
-
             if (client_width > inner_width || client_height > inner_height) {
                 new_width /= 2;
                 new_height /= 2;
@@ -51,21 +47,16 @@ static EM_BOOL resize_callback(int eventType, const EmscriptenUiEvent *uiEvent, 
             }
         }
     }
-
-    if (new_width != canvas_width || new_height != canvas_height) {
-        debug_printf"resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height,
-            new_width, new_height);
+if (new_width != canvas_width || new_height != canvas_height) {
+    debug_printf("resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height, new_width, new_height);
         SDL_SetWindowSize(sdl_window, new_width, new_height);
         canvas_width = new_width;
         canvas_height = new_height;
     }
-
     prev_inner_width = inner_width;
     prev_inner_height = inner_height;
-
     return true;
 }
-
 #else
 static int window_width;
 static int window_height;
@@ -211,7 +202,6 @@ SDL_GL_MakeCurrent(sdl_window,sdl_glcontext);
 
     glViewport(0, 0, canvas_width, canvas_height);
 #else
-// appear to correctly handle changes in device pixel ratio (at least,
 if(reset_window_metrics()){
 debug_printf("canvas width = %d\n",canvas_width);
 debug_printf("canvas height = %d\n",canvas_height);
