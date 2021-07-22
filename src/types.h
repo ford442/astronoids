@@ -1,6 +1,5 @@
 #ifndef __TYPES_H
 #define __TYPES_H
-
 #ifdef N64
 
 #define true 1
@@ -9,10 +8,7 @@ typedef int bool;
 typedef unsigned char uint8_t;
 
 #else
-
 #include <stdbool.h>
 #include <stdint.h>
-
 #endif
-
 #endif
