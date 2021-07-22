@@ -18,7 +18,7 @@ exit(exit_code);
 #ifdef __EMSCRIPTEN__
 static void enscripten_main_loop()
 {
-    main_loop(true);
+ main_loop(true);
 }
 #endif
 void set_main_loop(main_loop_fn_t new_main_loop){

@@ -51,8 +51,8 @@ const struct vec_2d result={
 return result;
 }
 static bool test_asteroid_against_polygon(const struct asteroid *asteroid,
-                                          const struct vec_2d vertices[],int num_vertices,bool wrap,
-                                          const struct vec_2d *offset){
+ const struct vec_2d vertices[],int num_vertices,bool wrap,
+ const struct vec_2d *offset){
 const float *geometry=asteroid_shape_data[asteroid->shape].vertices;
 const unsigned int num_asteroid_vertices=asteroid_shape_data[asteroid->shape].num_vertices;
 const float sinr=sinf(asteroid->rot);
@@ -88,9 +88,9 @@ for (j=0; j < num_vertices-1; ++j){
 e1=&vertices[j];
 e2=&vertices[j+1];
 if(lines_intersect(&a3,&a4,e1,e2) == true ||
-   lines_intersect(&a3,&a5,e1,e2) == true ||
-   lines_intersect(&a4,&a6,e1,e2) == true ||
-   lines_intersect(&a5,&a6,e1,e2) == true){
+ lines_intersect(&a3,&a5,e1,e2) == true ||
+ lines_intersect(&a4,&a6,e1,e2) == true ||
+ lines_intersect(&a5,&a6,e1,e2) == true){
 return true;
 }
 }
@@ -98,9 +98,9 @@ if(true == wrap){
 e1=&vertices[num_vertices-1];
 e2=&vertices[0];
 if(lines_intersect(&a3,&a4,e1,e2) == true ||
-   lines_intersect(&a3,&a5,e1,e2) == true ||
-   lines_intersect(&a4,&a6,e1,e2) == true ||
-   lines_intersect(&a5,&a6,e1,e2) == true){
+ lines_intersect(&a3,&a5,e1,e2) == true ||
+ lines_intersect(&a4,&a6,e1,e2) == true ||
+ lines_intersect(&a5,&a6,e1,e2) == true){
 return true;
 }
 }

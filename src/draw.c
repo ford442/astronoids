@@ -15,13 +15,7 @@ extern float pixel_density;
 extern struct shape asteroid_shapes[];
 extern GLfloat *_font[];
 const struct vec_2d origin={1.0f / 2.0f,
-                            ((GLfloat) LOGICAL_HEIGHT_PX / (GLfloat) LOGICAL_WIDTH_PX) / 2.0f};
-/******************************************************************************
- *
- * Helper functions
- *
- *****************************************************************************/
-
+ ((GLfloat) LOGICAL_HEIGHT_PX / (GLfloat) LOGICAL_WIDTH_PX) / 2.0f};
 void glVertex_2f(float x,float y){
 glVertex3f(x,y,0.f);
 }
@@ -170,9 +164,9 @@ char str[100];
 draw_text_centered("HIGH SCORES",0.39f,0.12f);
 for (i=0; i < 10; i++){
 if(scores->entries[i].used){
-sprintf(str,"%2d   %.3s %10d ",i+1,scores->entries[i].initials,scores->entries[i].score);
+sprintf(str,"%2d %.3s %10d ",i+1,scores->entries[i].initials,scores->entries[i].score);
 } else{
-sprintf(str,"%2d   ---          - ",i+1);
+sprintf(str,"%2d --- - ",i+1);
 }
 draw_text_centered(str,0.24f,0.21f+0.03f * (float) i);
 }

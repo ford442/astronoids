@@ -23,12 +23,13 @@ SDL_Quit();
 }
 void help(void){
 printf("\nAvailable options:\n\n");
-printf("  " FULLSCREEN_FLAG "\n");
-printf("  " HELP_FLAG "\n");
-printf("  " SANDBOX_FLAG "\n");
-printf("  " SILENT_FLAG "\n");
+printf(" " FULLSCREEN_FLAG "\n");
+printf(" " HELP_FLAG "\n");
+printf(" " SANDBOX_FLAG "\n");
+printf(" " SILENT_FLAG "\n");
 exit(0);
 }
+
 int main(int argc,char **argv){
 bool fullscreen=false;
 bool sandbox=false;

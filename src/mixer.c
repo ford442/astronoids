@@ -15,7 +15,7 @@ static int num_samples=0;
 static bool audio_device_open=false;
 bool mixer_init(int mixer_channels){
 static const Uint16 format=AUDIO_S16;
-static const int frequency=22050;
+static const int frequency=44100;
 static const int channels=1;
 static const int chunksize=512;
 Mix_Init(0);
@@ -40,7 +40,7 @@ int mixer_load_sample_from_file(const char *path){
 static const size_t PTR_SIZE=sizeof(Mix_Chunk * );
 if(num_samples * PTR_SIZE > SIZE_MAX-PTR_SIZE){
 fprintf(stderr,"Maximum number of samples (%d) reached while loading audio file (%s)",
-        num_samples,path);
+ num_samples,path);
 return MIXER_INVALID_SAMPLE;
 }
 Mix_Chunk **const realloc_samples=realloc(samples,(num_samples+1) * PTR_SIZE);
@@ -69,20 +69,20 @@ SDL_RWops *const rw=SDL_RWFromMem(buffer,sz);
 if(NULL == rw){
 free(buffer);
 fprintf(stderr,"SDL_RWFromMem failed while loading audio file (%s): %s\n",path,
-        SDL_GetError());
+ SDL_GetError());
 return MIXER_INVALID_SAMPLE;
 }
 samples[num_samples]=Mix_LoadWAV_RW(rw,0);
 if(NULL == samples[num_samples]){
 fprintf(stderr,"Mix_LoadWAV failed while loading audio file (%s): %s\n",path,
-        Mix_GetError());
+ Mix_GetError());
 }
 #ifdef __EMSCRIPTEN__
 SDL_FreeRW(rw);
 #else
 if(0 != SDL_RWclose(rw)){
-fprintf(stderr,"SDL_RWclose failed while loading audio file (%s): %s\n",path,
-        SDL_GetError());
+fprintf(stderr,"SDL_RW close failed while loading audio file (%s): %s\n",path,
+ SDL_GetError());
 }
 #endif
 free(buffer);

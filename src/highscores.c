@@ -35,7 +35,7 @@ buffer[0]='\0';
 if(NULL == fgets(buffer,HIGHSCORES_BUFFER_SIZE,file)){
 if(ferror(file)){
 fprintf(stderr,"Failed to read line %d of %s: %s",
-        current_entry+1,HIGHSCORES_FILE,strerror(errno));
+ current_entry+1,HIGHSCORES_FILE,strerror(errno));
 clearerr(file);
 }
 break;
@@ -44,7 +44,7 @@ current_score=&scores.entries[current_entry];
 result=sscanf(buffer,"%3[A-Z0-9 ],%u",current_score->initials,&current_score->score);
 if(result != 2){
 fprintf(stderr,"Skipping line %d of %s due to invalid data.\n",
-        current_entry+1,HIGHSCORES_FILE);
+ current_entry+1,HIGHSCORES_FILE);
 continue;
 }
 current_score->used=true;
@@ -84,7 +84,7 @@ while (SDL_PollEvent(&event)){
 switch (event.type){
 case SDL_KEYUP:
 if(event.key.keysym.sym == SDLK_KP_ENTER ||
-   event.key.keysym.sym == SDLK_RETURN){
+ event.key.keysym.sym == SDLK_RETURN){
 titlescreen_init();
 set_main_loop(titlescreen_loop);
 return;

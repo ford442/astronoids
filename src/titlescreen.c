@@ -46,7 +46,7 @@ while (SDL_PollEvent(&event)){
 switch (event.type){
 case SDL_KEYDOWN:
 if(event.key.keysym.sym == SDLK_KP_ENTER ||
-   event.key.keysym.sym == SDLK_RETURN){
+ event.key.keysym.sym == SDLK_RETURN){
 enter_down=true;
 } else if(event.key.keysym.sym == SDLK_h){
 h_down=true;

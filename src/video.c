@@ -21,41 +21,41 @@ static int prev_inner_width = 0;
 static int prev_inner_height = 0;
 static EM_BOOL resize_callback(int eventType, const EmscriptenUiEvent *uiEvent, void *userdata)
 {
-    const int inner_width = uiEvent->windowInnerWidth;
-    const int inner_height = uiEvent->windowInnerHeight;
-    int new_width = logical_width;
-    int new_height = logical_height;
-    while (new_width * 2 < inner_width && new_height * 2 < inner_height) {
-        new_width *= 2;
-        new_height *= 2;
-    }
-    emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-    if (new_width > logical_width && new_height > logical_height) {
-        const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev_inner_height;
-        const bool canvas_expanded = new_width > canvas_width || new_height > canvas_height;
-        if (window_shrunk || canvas_expanded) {
-            const int client_width = EM_ASM_INT({
-                return document.body.clientWidth;
-            }, NULL);
-            const int client_height = EM_ASM_INT({
-                return document.body.clientHeight;
-            }, NULL);
-            if (client_width > inner_width || client_height > inner_height) {
-                new_width /= 2;
-                new_height /= 2;
-                emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-            }
-        }
-    }
+const int inner_width = uiEvent->windowInnerWidth;
+const int inner_height = uiEvent->windowInnerHeight;
+int new_width = logical_width;
+int new_height = logical_height;
+while (new_width * 2 < inner_width && new_height * 2 < inner_height) {
+new_width *= 2;
+new_height *= 2;
+}
+emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
+if (new_width > logical_width && new_height > logical_height) {
+const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev_inner_height;
+const bool canvas_expanded = new_width > canvas_width || new_height > canvas_height;
+if (window_shrunk || canvas_expanded) {
+const int client_width = EM_ASM_INT({
+return document.body.clientWidth;
+}, NULL);
+const int client_height = EM_ASM_INT({
+return document.body.clientHeight;
+}, NULL);
+if (client_width > inner_width || client_height > inner_height) {
+new_width /= 2;
+new_height /= 2;
+emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
+}
+}
+}
 if (new_width != canvas_width || new_height != canvas_height) {
-    debug_printf("resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height, new_width, new_height);
-        SDL_SetWindowSize(sdl_window, new_width, new_height);
-        canvas_width = new_width;
-        canvas_height = new_height;
-    }
-    prev_inner_width = inner_width;
-    prev_inner_height = inner_height;
-    return true;
+debug_printf("resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height, new_width, new_height);
+SDL_SetWindowSize(sdl_window, new_width, new_height);
+canvas_width = new_width;
+canvas_height = new_height;
+}
+prev_inner_width = inner_width;
+prev_inner_height = inner_height;
+return true;
 }
 #else
 static int window_width;
@@ -91,11 +91,11 @@ int new_width=width;
 int new_height=height;
 #ifdef __EMSCRIPTEN__
 const int inner_width = EM_ASM_INT({
-        return window.innerWidth;
-    });
-    const int inner_height = EM_ASM_INT({
-        return window.innerHeight;
-    });
+return window.innerWidth;
+});
+const int inner_height = EM_ASM_INT({
+return window.innerHeight;
+});
 #else
 SDL_Rect rect;
 if(0 != SDL_GetDisplayUsableBounds(0,&rect)){
@@ -114,12 +114,9 @@ int flags=SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
 if(fullscreen == true){
 flags|=SDL_WINDOW_FULLSCREEN;
 }
-#ifndef __EMSCRIPTEN__
-flags|=SDL_WINDOW_ALLOW_HIGHDPI;
-#endif
 if(NULL == sdl_window){
 sdl_window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,
-                            SDL_WINDOWPOS_UNDEFINED,new_width,new_height,flags);
+SDL_WINDOWPOS_UNDEFINED,new_width,new_height,flags);
 }
 if(NULL == sdl_window){
 fprintf(stderr,"SDL_CreateWindow failed: %s\n",SDL_GetError());
@@ -127,23 +124,20 @@ return false;
 }
 #ifdef __EMSCRIPTEN__
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-
-    const int client_width = EM_ASM_INT({
-        return document.body.clientWidth;
-    });
-    const int client_height = EM_ASM_INT({
-        return document.body.clientHeight;
-    });
-
-    if (client_width > inner_width || client_height > inner_height) {
-        new_width /= 2;
-        new_height /= 2;
-        emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-        SDL_SetWindowSize(sdl_window, new_width, new_height);
-    }
-
-    prev_inner_width = inner_width;
-    prev_inner_height = inner_height;
+const int client_width = EM_ASM_INT({
+return document.body.clientWidth;
+});
+const int client_height = EM_ASM_INT({
+return document.body.clientHeight;
+});
+if (client_width > inner_width || client_height > inner_height) {
+new_width /= 2;
+new_height /= 2;
+emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
+SDL_SetWindowSize(sdl_window, new_width, new_height);
+}
+prev_inner_width = inner_width;
+prev_inner_height = inner_height;
 #else
 window_width=new_width;
 window_height=new_height;
@@ -172,8 +166,8 @@ return false;
 SDL_GL_MakeCurrent(sdl_window,sdl_glcontext);
 #ifdef __EMSCRIPTEN__
 emscripten_set_resize_callback("canvas", NULL, true, resize_callback);
-    canvas_width = new_width;
-    canvas_height = new_height;
+canvas_width = new_width;
+canvas_height = new_height;
 #else
 SDL_GL_SetSwapInterval(1);
 reset_window_metrics();
@@ -194,13 +188,11 @@ void video_clear(){
 const GLfloat ratio=(GLfloat) logical_height / (GLfloat) logical_width;
 SDL_GL_MakeCurrent(sdl_window,sdl_glcontext);
 #ifdef __EMSCRIPTEN__
-// calling it repeatedly will cause Emscripten to produce an excessive number of warning
-    const int swap_interval = SDL_GL_GetSwapInterval();
-    if (swap_interval != 0) {
-        SDL_GL_SetSwapInterval(0);
-    }
-
-    glViewport(0, 0, canvas_width, canvas_height);
+const int swap_interval = SDL_GL_GetSwapInterval();
+if (swap_interval != 0) {
+SDL_GL_SetSwapInterval(0);
+}
+glViewport(0, 0, canvas_width, canvas_height);
 #else
 if(reset_window_metrics()){
 debug_printf("canvas width = %d\n",canvas_width);

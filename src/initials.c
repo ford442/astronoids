@@ -13,7 +13,7 @@ static char initials[4];
 static unsigned int score;
 void initials_init(unsigned int new_score){
 current_initial=0;
-memcpy(initials,"_  ",4);
+memcpy(initials,"_ ",4);
 score=new_score;
 }
 void initials_loop(bool draw){
@@ -35,8 +35,8 @@ titlescreen_init();
 set_main_loop(titlescreen_loop);
 return;
 } else if(current_initial < 3 &&
-          event.key.keysym.sym >= SDLK_a &&
-          event.key.keysym.sym <= SDLK_z){
+ event.key.keysym.sym >= SDLK_a &&
+ event.key.keysym.sym <= SDLK_z){
 initials[current_initial]=event.key.keysym.sym-32;
 reset_simulation_time();
 current_initial++;

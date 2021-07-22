@@ -77,24 +77,24 @@ thruster_channel=mixer_play_sample(SOUND_THRUSTER);
 }
 }
 }
-s=vec_2d_magnitude(vel);                    /* Calculate speed */
+s=vec_2d_magnitude(vel); /* Calculate speed */
 
-if(s > MAX_SPEED){                          /* Limit speed */
+if(s > MAX_SPEED){ /* Limit speed */
 s=MAX_SPEED;
 vec_2d_normalise(vel);
 vec_2d_scale(vel,MAX_SPEED);
 }
 p->pos_prev.x=pos->x;
 p->pos_prev.y=pos->y;
-pos->x+=vel->x * factor;                    /* Calculate position */
+pos->x+=vel->x * factor; /* Calculate position */
 pos->y+=vel->y * factor;
 if(p->state == PS_EXPLODING){
 d=s * (1.0f-1.5f * factor);
 } else{
-d=s * (1.0f-0.5f * factor);           /* Calculate dampening */
+d=s * (1.0f-0.5f * factor); /* Calculate dampening */
 }
 if(d > 0.0f){
-vec_2d_normalise(vel);                    /* Apply dampening */
+vec_2d_normalise(vel); /* Apply dampening */
 vec_2d_scale(vel,d);
 }
 if(p->state == PS_NORMAL){
@@ -239,7 +239,7 @@ if(true == bb->visible){
 t.x=bb->vel.x * f;
 t.y=bb->vel.y * f;
 if(bb->pos.x+t.x != bb->pos.x ||
-   bb->pos.y+t.y != bb->pos.y){
+ bb->pos.y+t.y != bb->pos.y){
 bb->pos_prev.x=bb->pos.x;
 bb->pos_prev.y=bb->pos.y;
 }
@@ -280,8 +280,8 @@ p->shards[i].dir=1;
 }
 }
 void explode_asteroid(struct asteroid *a,
-                      struct asteroid *aa,unsigned int na,
-                      struct explosion *ea,unsigned int ne){
+ struct asteroid *aa,unsigned int na,
+ struct explosion *ea,unsigned int ne){
 float vel_scale=1.0f;
 unsigned int i;
 for (i=0; i < ne; i++,ea++){
@@ -332,8 +332,8 @@ ee->visible=false;
 }
 }
 void check_collisions(struct player *p,struct asteroid *aa,unsigned int na,
-                      struct bullet *ba,unsigned int nb,struct explosion *ea,unsigned ne,
-                      unsigned int *asteroids_hit){
+ struct bullet *ba,unsigned int nb,struct explosion *ea,unsigned ne,
+ unsigned int *asteroids_hit){
 float dx,dy;
 unsigned int i,j;
 bool asteroid_hit=false;
@@ -453,8 +453,8 @@ asteroid_update(&asteroids[i],factor);
 }
 }
 check_collisions(&player,asteroids,MAX_ASTEROIDS,
-                 bullets,MAX_BULLETS,explosions,MAX_EXPLOSIONS,
-                 &asteroids_hit);
+ bullets,MAX_BULLETS,explosions,MAX_EXPLOSIONS,
+ &asteroids_hit);
 unsigned int num_asteroids=0;
 for (int i=0; i < MAX_ASTEROIDS; ++i){
 if(true == asteroids[i].visible){
