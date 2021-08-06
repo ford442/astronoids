@@ -45,7 +45,6 @@ endif()
 find_package(OpenGL REQUIRED)
 
 set(SRCS
-src/game.c
 src/loop.c
     src/main.c
     src/mixer.c
