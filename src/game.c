@@ -46,7 +46,6 @@ bool game_init(bool silent){
 
 if(!silent){
 mixer_set_channel_completion_handler(mixer_channel_complete);
-debug_printf("load_samples...\n");
 if(!load_samples()){
 return false;
 }
@@ -58,9 +57,7 @@ mixer_set_channel_completion_handler(NULL);
 }
 void game_play(bool sandbox){
 if(sandbox){
-set_main_loop(sandbox_loop);
 } else{
-set_main_loop(titlescreen_loop);
 }
 run_main_loop();
 }
