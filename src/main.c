@@ -70,7 +70,7 @@ mixer_cleanup();
 void help(void){
 }
 int main(int argc,char **argv){
-int x=mixer_play_sample(AUDIO_FILES[4]);
+mixer_play_sample(AUDIO_FILES[4]);
 return 0;
 }
 
