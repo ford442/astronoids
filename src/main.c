@@ -12,10 +12,7 @@
 #define SANDBOX_FLAG "--sandbox"
 #define SILENT_FLAG "--silent"
 void cleanup(void){
-debug_printf("cleanup...\n");
-game_cleanup();
 mixer_cleanup();
-video_cleanup();
 SDL_Quit();
 }
 void help(void){
@@ -53,22 +50,17 @@ SDL_Init(0);
 #ifdef __EMSCRIPTEN__
 SDL_SetHint(SDL_HINT_NO_SIGNAL_HANDLERS, "1");
 #endif
-debug_printf("video_init...\n");
 if(false == video_init(LOGICAL_WIDTH_PX,LOGICAL_HEIGHT_PX,"Asteroids",fullscreen)){
 exit(1);
 }
 if(!silent){
-debug_printf("mixer_init...\n");
 if(false == mixer_init(MIXER_DEFAULT)){
 exit(1);
 }
 }
-debug_printf("game_init...\n");
 if(false == game_init(silent)){
 exit(1);
 }
-debug_printf("game_play...\n");
-game_play(sandbox);
 return 0;
 }
 mixer_play_sample(SOUND_THRUSTER);
