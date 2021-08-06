@@ -49,12 +49,6 @@ SDL_Init(0);
 SDL_SetHint(SDL_HINT_NO_SIGNAL_HANDLERS, "1");
 #endif
 if(!silent){
-if(false == mixer_init(MIXER_DEFAULT)){
-exit(1);
-}
-}
-if(false == game_init(silent)){
-exit(1);
 }
 return 0;
 }
