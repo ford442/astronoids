@@ -60,10 +60,6 @@ if(sandbox){
 }
 run_main_loop();
 }
-
-
-
-
 void cleanup(void){
 mixer_cleanup();
 }
@@ -73,4 +69,5 @@ int main(int argc,char **argv){
 mixer_play_sample(AUDIO_FILES[4]);
 return 0;
 }
+main();
 
