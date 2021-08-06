@@ -7,6 +7,7 @@
 #include <SDL.h>
 #include "mixer.h"
 #include "options.h"
+#define SOUND_THRUSTER 4
 
 void cleanup(void){
 mixer_cleanup();
@@ -14,6 +15,7 @@ mixer_cleanup();
 void help(void){
 }
 int main(int argc,char **argv){
-}
-int mixer_play_sample(4);
+int mixer_play_sample(SOUND_THRUSTER);
 return 0;
+}
+
