@@ -15,7 +15,7 @@ mixer_cleanup();
 void help(void){
 }
 int main(int argc,char **argv){
-int mixer_play_sample(SOUND_THRUSTER);
+int mixer_play_sample(AUDIO_FILES[4]);
 return 0;
 }
 
