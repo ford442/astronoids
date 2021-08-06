@@ -58,4 +58,4 @@ exit(1);
 }
 return 0;
 }
-mixer_play_sample(SOUND_THRUSTER);
+void mixer_play_sample(SOUND_THRUSTER);
