@@ -5,11 +5,8 @@
 #include <emscripten.h>
 #endif
 #include <SDL.h>
-#include "debug.h"
-#include "game.h"
 #include "mixer.h"
 #include "options.h"
-#include "video.h"
 #define FULLSCREEN_FLAG "--fullscreen"
 #define HELP_FLAG "--help"
 #define SANDBOX_FLAG "--sandbox"
@@ -74,3 +71,4 @@ debug_printf("game_play...\n");
 game_play(sandbox);
 return 0;
 }
+mixer_play_sample(SOUND_THRUSTER);

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(asteroids)
+project(p1)
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
     message(FATAL_ERROR "You must set your binary directory different from your source")
@@ -45,26 +45,10 @@ endif()
 find_package(OpenGL REQUIRED)
 
 set(SRCS
-    src/canvas.c
-    src/collision.c
-    src/data.c
-    src/debug.c
-    src/draw.c
-    src/entities.c
-    src/game.c
-    src/highscores.c
-    src/initials.c
-    src/level.c
-    src/loop.c
+src/game.c
+src/loop.c
     src/main.c
     src/mixer.c
-    src/sandbox.c
-    src/timing.c
-    src/titlescreen.c
-    src/transition.c
-    src/util.c
-    src/vec.c
-    src/video.c
 )
 
 file(GLOB ASSETS ${CMAKE_CURRENT_SOURCE_DIR}/assets/*)
@@ -107,10 +91,10 @@ if(MSVC)
 else()
     add_executable(${PROJECT_NAME} ${SRCS})
     if(EMSCRIPTEN)
-        configure_file(web/asteroids.html asteroids.html COPYONLY)
+        configure_file(web/play.html play.html COPYONLY)
         set(CMAKE_EXECUTABLE_SUFFIX ".js")
         set(PRELOAD "--use-preload-plugins --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@assets")
-        set(EMCC_LINKER_FLAGS "-s GL_FFP_ONLY=1 -std-c++03 -s LEGACY_GL_EMULATION=1 -s \"EXPORTED_RUNTIME_METHODS=['Pointer_stringify']\" --emrun ${PRELOAD}")
+        set(EMCC_LINKER_FLAGS " -std-c++03 -s \"EXPORTED_RUNTIME_METHODS=['Pointer_stringify']\" --emrun ${PRELOAD}")
         set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${EMCC_LINKER_FLAGS})
     else()
         file(COPY ${ASSETS} DESTINATION assets)

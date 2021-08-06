@@ -6,20 +6,10 @@
 #include <emscripten.h>
 #endif
 #include <SDL.h>
-#include "collision.h"
-#include "debug.h"
-#include "draw.h"
 #include "loop.h"
 #include "mixer.h"
 #include "options.h"
-#include "sandbox.h"
-#include "titlescreen.h"
-#include "util.h"
-#include "vec.h"
-#include "video.h"
-#ifndef __EMSCRIPTEN__
-#include "highscores.h"
-#endif
+
 #define MAX_SAMPLES 20
 static const char *AUDIO_FILES[]={
 "assets/beat1.wav",
@@ -53,10 +43,7 @@ thruster_channel=-1;
 }
 }
 bool game_init(bool silent){
-#ifndef __EMSCRIPTEN__
-debug_printf("load_highscores...\n");
-load_highscores();
-#endif
+
 if(!silent){
 mixer_set_channel_completion_handler(mixer_channel_complete);
 debug_printf("load_samples...\n");
@@ -71,11 +58,10 @@ mixer_set_channel_completion_handler(NULL);
 }
 void game_play(bool sandbox){
 if(sandbox){
-sandbox_init();
 set_main_loop(sandbox_loop);
 } else{
-titlescreen_init();
 set_main_loop(titlescreen_loop);
 }
 run_main_loop();
 }
+
