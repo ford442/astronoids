@@ -16,13 +16,8 @@ mixer_cleanup();
 }
 void help(void){
 }
-
 int main(int argc,char **argv){
 }
-
-SDL_SetHint(SDL_HINT_NO_SIGNAL_HANDLERS, "1");
-if(!silent){
-}
-return 0;
-}
+int SDL_SetHint(int SDL_HINT_NO_SIGNAL_HANDLERS, "1");
 int mixer_play_sample(int SOUND_THRUSTER);
+return 0;
