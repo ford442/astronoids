@@ -13,34 +13,11 @@
 #define SILENT_FLAG "--silent"
 void cleanup(void){
 mixer_cleanup();
-SDL_Quit();
 }
 void help(void){
-printf("\nAvailable options:\n\n");
-printf(" " FULLSCREEN_FLAG "\n");
-printf(" " HELP_FLAG "\n");
-printf(" " SANDBOX_FLAG "\n");
-printf(" " SILENT_FLAG "\n");
-exit(0);
 }
 
 int main(int argc,char **argv){
-bool fullscreen=false;
-bool sandbox=false;
-bool silent=false;
-if(argc > 1){
-for (int i=1; i < argc; ++i){
-if(strcmp(argv[i],FULLSCREEN_FLAG) == 0){
-fullscreen=true;
-} else if(strcmp(argv[i],HELP_FLAG) == 0){
-help();
-} else if(strcmp(argv[i],SANDBOX_FLAG) == 0){
-sandbox=true;
-} else if(strcmp(argv[i],SILENT_FLAG) == 0){
-silent=true;
-} else{
-fprintf(stderr,"unrecognised option: %s\n",argv[i]);
-}
 }
 }
 atexit(cleanup);
@@ -52,4 +29,4 @@ if(!silent){
 }
 return 0;
 }
-void mixer_play_sample(SOUND_THRUSTER);
+int mixer_play_sample(int SOUND_THRUSTER);
