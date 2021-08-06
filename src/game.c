@@ -9,6 +9,7 @@
 #include "loop.h"
 #include "mixer.h"
 #include "options.h"
+#include "types.h"
 
 #define MAX_SAMPLES 20
 static const char *AUDIO_FILES[]={
