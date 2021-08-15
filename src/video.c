@@ -91,10 +91,10 @@ int new_width=width;
 int new_height=height;
 #ifdef __EMSCRIPTEN__
 const int inner_width = EM_ASM_INT({
-return window.innerWidth;
+return window.innerWidth*2;
 });
 const int inner_height = EM_ASM_INT({
-return window.innerHeight;
+return window.innerHeight*2;
 });
 #else
 SDL_Rect rect;
@@ -125,10 +125,10 @@ return false;
 #ifdef __EMSCRIPTEN__
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 const int client_width = EM_ASM_INT({
-return document.body.clientWidth*2;
+return document.body.clientWidth;
 });
 const int client_height = EM_ASM_INT({
-return document.body.clientHeight*2;
+return document.body.clientHeight;
 });
 if (client_width > inner_width || client_height > inner_height) {
 new_width /= 2;
