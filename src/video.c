@@ -35,10 +35,10 @@ const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev
 const bool canvas_expanded = new_width > canvas_width || new_height > canvas_height;
 if (window_shrunk || canvas_expanded) {
 const int client_width = EM_ASM_INT({
-return document.body.clientWidth;
+return document.body.clientWidth*2;
 }, NULL);
 const int client_height = EM_ASM_INT({
-return document.body.clientHeight;
+return document.body.clientHeight*2;
 }, NULL);
 if (client_width > inner_width || client_height > inner_height) {
 new_width /= 2;
