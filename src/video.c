@@ -125,10 +125,10 @@ return false;
 #ifdef __EMSCRIPTEN__
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 const int client_width = EM_ASM_INT({
-return document.body.clientWidth;
+return document.body.clientWidth/2;
 });
 const int client_height = EM_ASM_INT({
-return document.body.clientHeight;
+return document.body.clientHeight/2;
 });
 if (client_width > inner_width || client_height > inner_height) {
 new_width /= 2;
