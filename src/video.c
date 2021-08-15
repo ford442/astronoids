@@ -25,7 +25,10 @@ const int inner_width = uiEvent->windowInnerWidth;
 const int inner_height = uiEvent->windowInnerHeight;
 int new_width = logical_width;
 int new_height = logical_height;
-
+while (new_width * 2 < inner_width && new_height * 2 < inner_height) {
+new_width *= 2;
+new_height *= 2;
+}
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 if (new_width > logical_width && new_height > logical_height) {
 const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev_inner_height;
@@ -37,10 +40,19 @@ return document.body.clientWidth;
 const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 }, NULL);
-
+if (client_width > inner_width || client_height > inner_height) {
+new_width /= 2;
+new_height /= 2;
+emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 }
 }
-
+}
+if (new_width != canvas_width || new_height != canvas_height) {
+debug_printf("resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height, new_width, new_height);
+SDL_SetWindowSize(sdl_window, new_width, new_height);
+canvas_width = new_width;
+canvas_height = new_height;
+}
 prev_inner_width = inner_width;
 prev_inner_height = inner_height;
 return true;
@@ -94,7 +106,10 @@ const int inner_width=rect.w;
 const int inner_height=rect.h;
 #endif
 debug_printf("client area = (%d, %d)\n",inner_width,inner_height);
-
+while (new_width * 2 < inner_width && new_height * 2 < inner_height){
+new_width*=2;
+new_height*=2;
+}
 int flags=SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
 if(fullscreen == true){
 flags|=SDL_WINDOW_FULLSCREEN;
@@ -115,7 +130,12 @@ return document.body.clientWidth;
 const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 });
-
+if (client_width > inner_width || client_height > inner_height) {
+new_width /= 2;
+new_height /= 2;
+emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
+SDL_SetWindowSize(sdl_window, new_width, new_height);
+}
 prev_inner_width = inner_width;
 prev_inner_height = inner_height;
 #else
@@ -199,8 +219,8 @@ glScissor(0,0,canvas_width,canvas_height);
 glViewport(0,0,canvas_width,canvas_height);
 glClearColor(0.2f,0.2f,0.2f,0.0f);
 glClear(GL_COLOR_BUFFER_BIT);
-const GLfloat x=(canvas_width-viewport_width) / 1.5f;
-const GLfloat y=(canvas_height-viewport_height) / 1.5f;
+const GLfloat x=(canvas_width-viewport_width) / 2.f;
+const GLfloat y=(canvas_height-viewport_height) / 2.f;
 glScissor((GLint) x,(GLint) y,(GLsizei) viewport_width,(GLsizei) viewport_height);
 glViewport((GLint) x,(GLint) y,(GLsizei) viewport_width,(GLsizei) viewport_height);
 #endif
