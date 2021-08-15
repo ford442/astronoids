@@ -91,10 +91,10 @@ int new_width=width;
 int new_height=height;
 #ifdef __EMSCRIPTEN__
 const int inner_width = EM_ASM_INT({
-return window.innerWidth*2;
+return window.innerWidth;
 });
 const int inner_height = EM_ASM_INT({
-return window.innerHeight*2;
+return window.innerHeight;
 });
 #else
 SDL_Rect rect;
