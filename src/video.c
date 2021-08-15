@@ -25,7 +25,7 @@ const int inner_width = uiEvent->windowInnerWidth;
 const int inner_height = uiEvent->windowInnerHeight;
 int new_width = logical_width;
 int new_height = logical_height;
-while (new_width * 2 < inner_width && new_height * 2 < inner_height) {
+while (new_width * 1.25 < inner_width && new_height * 1.25 < inner_height) {
 new_width *= 2;
 new_height *= 2;
 }
