@@ -219,8 +219,8 @@ glScissor(0,0,canvas_width,canvas_height);
 glViewport(0,0,canvas_width,canvas_height);
 glClearColor(0.2f,0.2f,0.2f,0.0f);
 glClear(GL_COLOR_BUFFER_BIT);
-const GLfloat x=(canvas_width-viewport_width) / 2.f;
-const GLfloat y=(canvas_height-viewport_height) / 2.f;
+const GLfloat x=(canvas_width-viewport_width) / 1.f;
+const GLfloat y=(canvas_height-viewport_height) / 1.f;
 glScissor((GLint) x,(GLint) y,(GLsizei) viewport_width,(GLsizei) viewport_height);
 glViewport((GLint) x,(GLint) y,(GLsizei) viewport_width,(GLsizei) viewport_height);
 #endif
