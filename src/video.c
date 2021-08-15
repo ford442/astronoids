@@ -25,7 +25,7 @@ const int inner_width = uiEvent->windowInnerWidth;
 const int inner_height = uiEvent->windowInnerHeight;
 int new_width = logical_width;
 int new_height = logical_height;
-while (new_width * 2 < inner_width && new_height * 2 < inner_height) {
+while (new_width * 1 < inner_width && new_height * 1 < inner_height) {
 new_width *= 2;
 new_height *= 2;
 }
@@ -41,8 +41,8 @@ const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 }, NULL);
 if (client_width > inner_width || client_height > inner_height) {
-new_width /= 2;
-new_height /= 2;
+new_width /= 1;
+new_height /= 1;
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 }
 }
@@ -131,8 +131,8 @@ const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 });
 if (client_width > inner_width || client_height > inner_height) {
-new_width /= 2;
-new_height /= 2;
+new_width /= 1;
+new_height /= 1;
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 SDL_SetWindowSize(sdl_window, new_width, new_height);
 }
