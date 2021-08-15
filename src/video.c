@@ -25,10 +25,7 @@ const int inner_width = uiEvent->windowInnerWidth;
 const int inner_height = uiEvent->windowInnerHeight;
 int new_width = logical_width;
 int new_height = logical_height;
-while (new_width * 1 < inner_width && new_height * 1 < inner_height) {
-new_width *= 1;
-new_height *= 1;
-}
+
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 if (new_width > logical_width && new_height > logical_height) {
 const bool window_shrunk = inner_width < prev_inner_width || inner_height < prev_inner_height;
@@ -40,19 +37,10 @@ return document.body.clientWidth;
 const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 }, NULL);
-if (client_width > inner_width || client_height > inner_height) {
-new_width /= 1;
-new_height /= 1;
-emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
+
 }
 }
-}
-if (new_width != canvas_width || new_height != canvas_height) {
-debug_printf("resizing canvas from (%d, %d) to (%d, %d)\n", canvas_width, canvas_height, new_width, new_height);
-SDL_SetWindowSize(sdl_window, new_width, new_height);
-canvas_width = new_width;
-canvas_height = new_height;
-}
+
 prev_inner_width = inner_width;
 prev_inner_height = inner_height;
 return true;
@@ -106,10 +94,7 @@ const int inner_width=rect.w;
 const int inner_height=rect.h;
 #endif
 debug_printf("client area = (%d, %d)\n",inner_width,inner_height);
-while (new_width * 1 < inner_width && new_height * 1 < inner_height){
-new_width*=1;
-new_height*=1;
-}
+
 int flags=SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
 if(fullscreen == true){
 flags|=SDL_WINDOW_FULLSCREEN;
@@ -130,12 +115,7 @@ return document.body.clientWidth;
 const int client_height = EM_ASM_INT({
 return document.body.clientHeight;
 });
-if (client_width > inner_width || client_height > inner_height) {
-new_width /= 1;
-new_height /= 1;
-emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
-SDL_SetWindowSize(sdl_window, new_width, new_height);
-}
+
 prev_inner_width = inner_width;
 prev_inner_height = inner_height;
 #else
