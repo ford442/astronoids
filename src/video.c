@@ -41,8 +41,8 @@ const int client_height = EM_ASM_INT({
 return document.body.clientHeight*2;
 }, NULL);
 if (client_width > inner_width || client_height > inner_height) {
-new_width /= 2;
-new_height /= 2;
+new_width /= 1;
+new_height /= 1;
 emscripten_set_element_css_size(EM_TARGET, new_width, new_height);
 }
 }
